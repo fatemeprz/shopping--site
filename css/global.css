@@ -37,13 +37,16 @@
     transform: rotate(360deg);
   }
 }
-.cards{
+.cards {
   width: 75%;
   margin-top: 50px;
 }
-.body{
-  @apply max-w-maxScreen m-auto bg-background
+.body {
+  @apply max-w-maxScreen m-auto bg-background;
 }
-.input{
-  @apply border-2 border-secondary rounded-lg px-3 py-2 text-primary outline-none my-4
+.input {
+  @apply border-2 rounded-lg px-3 py-2 text-primary my-4 focus:border-primary focus:border-2 focus:outline-none;
+}
+.loader{
+  @apply animate-spin m-auto border-8 rounded-full border-primary border-y-transparent w-28 h-28
 }
