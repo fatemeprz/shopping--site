@@ -14,6 +14,7 @@ const submitHandler=async(event)=>{
         password})
     console.log(response);
     setCookie(response.token)
+    location.assign("../index.html")
 }
 
 loginButton.addEventListener("click",submitHandler)
