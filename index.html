@@ -9,28 +9,35 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
     />
     <link rel="stylesheet" href="./css/global.css" />
-    <link rel="stylesheet" href="./css/tailwind.css">
+    <link rel="stylesheet" href="./css/tailwind.css" />
   </head>
   <body class="body">
-    <header class="mx-10"> 
+    <header class="mx-10">
       <div class="flex flex-row justify-between">
-        <h3  class="text-primary font-bold text-xl mt-7 mb-10">Store</h3>
-        <a href="./auth.html" class="px-4 py-1.5 bg-white rounded-xl font-semibold text-sm mt-7 mb-10">Login <i class="fa-solid fa-arrow-right-to-bracket ml-1"></i></a>
+        <h3 class="text-primary font-bold text-xl mt-7 mb-10">Store</h3>
+        <a
+          href="./public/auth.html"
+          class="px-4 py-1.5 bg-white rounded-xl font-semibold text-sm mt-7 mb-10 hover:scale-110 transition duration-100 ease-in-out"
+          >Login <i class="fa-solid fa-arrow-right-to-bracket ml-1"></i
+        ></a>
       </div>
-        <h2 class="text-3xl font-semibold leading-5">Shop</h2>
+      <h2 class="text-3xl font-semibold leading-5">Shop</h2>
       <div>
-        <input class="my-5 px-3 py-1 rounded-lg border-2 outline-none border-solid" type="text" placeholder="Search product">
-        <button type="button"><i class="fa-solid fa-magnifying-glass text-background"></i></button>
+        <input
+          class="my-5 px-3 py-1 rounded-lg border-2 outline-none border-solid"
+          type="text"
+          placeholder="Search product"
+        />
+        <button type="button">
+          <i class="fa-solid fa-magnifying-glass text-background"></i>
+        </button>
       </div>
     </header>
     <div class="container mx-10">
       <main class="cards">
-        <div id="loader"></div>
-
+        <div class="loader hidden"></div>
       </main>
-      <aside class="categury ">
-
-      </aside>
+      <aside class="categury"></aside>
     </div>
     <script type="module" src="./index.js"></script>
   </body>

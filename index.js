@@ -5,22 +5,25 @@ const BASE_URL="https://fakestoreapi.com"
 
 const getData=()=>{
 
-    try{
+    // try{
 
-        fetch(`${BASE_URL}/products`)
-            .then(res=>res.json())
-            .then(data=>console.log(data))
-        start()
+    //     fetch(`${BASE_URL}/products`)
+    //         .then(res=>res.json())
+    //         .then(data=>console.log(data))
+    //     start()
         
-    }
-    catch{
+        
+    // }
+    // catch{
 
-    }
-
+    // }
+    
+    
 }
 
 const start=()=>{
     loader.style.display="none"
+    
 }
 
 
