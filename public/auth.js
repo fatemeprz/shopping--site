@@ -1,6 +1,8 @@
 import { postData } from "../utils/httpReq.js"
 import { setCookie } from "../utils/cookie.js"
 import { authHandeler } from "../utils/authorization.js"
+import { removeNotations ,validation } from "../utils/validation.js"
+
 
 const inputs=document.querySelectorAll(".input")
 const loginButton=document.querySelector(".login")
@@ -14,15 +16,20 @@ const submitHandler=async(event)=>{
     
     try{
 
-        const response=await postData("auth/login",{
-            username,
-            password
-        })
-    
-    
-        console.log(response);
-        setCookie(response.token)
-        location.assign("../index.html")
+        const validate=validation(username,password)
+        if(validate){
+
+            const response=await postData("auth/login",{
+                username,
+                password
+            })
+            setCookie(response.token)
+            removeNotations()
+            location.assign("../index.html")
+        }
+        else{
+            return
+        }
     }
     catch(error){
         console.log(error);

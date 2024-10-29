@@ -45,8 +45,11 @@
   @apply max-w-maxScreen m-auto bg-background;
 }
 .input {
-  @apply border-2 rounded-lg px-3 py-2 text-primary my-4 focus:border-primary focus:border-2 focus:outline-none;
+  @apply border-2 rounded-lg px-3 py-2 text-primary my-1.5 focus:border-primary focus:border-2 focus:outline-none;
 }
 .loader{
   @apply animate-spin m-auto border-8 rounded-full border-primary border-y-transparent w-28 h-28
+}
+.notaition{
+  @apply text-error text-sm text-left pl-3 py-1 invisible
 }
