@@ -16,15 +16,14 @@
       <div class="flex flex-row justify-between">
         <h3 class="text-primary font-bold text-xl mt-7 mb-10">Store</h3>
         <a
-          href="./public/auth.html"
-          class="px-4 py-1.5 bg-white rounded-xl font-semibold text-sm mt-7 mb-10 hover:scale-110 transition duration-100 ease-in-out"
-          >Login <i class="fa-solid fa-arrow-right-to-bracket ml-1"></i
+          id="user"
+          class="px-3 py-2 bg-white rounded-xl font-semibold text-sm mt-7 mb-10 transition duration-100 ease-in-out hover:bg-black hover:text-white transition ease-in hover:duration-400"
         ></a>
       </div>
-      <h2 class="text-3xl font-semibold leading-5">Shop</h2>
+      <h2 class="text-3xl font-semibold leading-5 mb-4">Shop</h2>
       <div>
         <input
-          class="my-5 px-3 py-1 rounded-lg border-2 outline-none border-solid"
+          class="my-5 px-3 py-1 rounded-lg border-2 outline-none border-solid focus:border-2 focus:border-primary"
           type="text"
           placeholder="Search product"
         />
@@ -33,11 +32,24 @@
         </button>
       </div>
     </header>
-    <div class="container mx-10">
-      <main class="cards">
-        <div class="loader hidden"></div>
-      </main>
-      <aside class="categury"></aside>
+    <div class="flex mx-10 h-64 justify-between mt-10">
+      <div class="carts">
+        <div class="loader"></div>
+      </div>
+      <div class="bg-white p-5 rounded-lg w-56">
+        <div class="flex align-baseline">
+          <i class="fa-solid fa-list text-primary mt-0.5 mr-2"></i>
+          <div class="text-primary font-semibold">Categories</div>
+        </div>
+
+        <ul class="mt-3">
+          <li class="categury-selected">All</li>
+          <li class="categury-notselected">Electronics</li>
+          <li class="categury-notselected">Jewelery</li>
+          <li class="categury-notselected">Men's Clothing</li>
+          <li class="categury-notselected">Womens's Clothing</li>
+        </ul>
+      </div>
     </div>
     <script type="module" src="./index.js"></script>
   </body>
