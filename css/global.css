@@ -68,3 +68,6 @@
 .rating-left {
   @apply text-error bg-gray-100 px-1.5 text-sm py-0.5 rounded-lg;
 }
+.alert{
+  @apply text-primary font-semibold text-xl
+}

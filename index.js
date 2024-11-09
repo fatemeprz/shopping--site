@@ -1,54 +1,46 @@
-import { getCookie } from "./utils/cookie.js"
+import { getCookie } from "./utils/cookie.js";
+import { getData } from "./utils/httpReq.js";
+import shortString from "./utils/shortString.js";
 
-const cards=document.querySelector(".cards")
-const loader=document.querySelector(".loader")
-const userButton=document.getElementById("user")
-const carts=document.querySelector(".carts")
+const loader = document.querySelector(".loader");
+const userButton = document.getElementById("user");
+const carts = document.querySelector(".carts");
+const searchButton = document.getElementById("search-button");
+let allProducts = null;
 
-const BASE_URL="https://fakestoreapi.com"
+const BASE_URL = "https://fakestoreapi.com";
 
-const getData=async()=>{
+const init = async () => {
+  showUserButton();
+  allProducts = await getData("products");
+  console.log(allProducts);
+  start();
+  showProducts(allProducts);
+};
 
-    showUserButton()
+const showProducts = async (data) => {
+  carts.innerHTML = " ";
 
-    try{
+  const allProducts = await data.forEach((product) => {
+    const {
+      image,
+      title,
+      price,
+      rating: { count, rate },
+      cateqory,
+      id,
+      description,
+    } = product;
 
-        const res= await fetch(`${BASE_URL}/products`)
-        const data=await res.json()
-        console.log(data);
-        start()
-        showProducts(data)
-    }
-    catch{
+    const productTitle = shortString(title);
 
-    }
-    
-    
-}
-
-const showProducts=async(data)=>{
-
-    // loader.style.display="none"
-    console.dir(loader.style.display);
-    const products=await data.forEach(item => {
-        createCart(item)
-         
-    });
-    
-}
-const createCart=(product)=>{
-    // console.log(product)
-    
-    const {image,title,price,rating:{count,rate},cateqory,id,description}= product
-    const productTitle=title.split(" ").slice(0,4).join(" ")
-  
-    const cartJSX=`
+    const cartJSX = `
     <div class="product">
         <img class="product-img" src=${image}>
         <div class="product-title">${productTitle}</div>
         <div class="buy-section">
             <div class="buy-section-right">$ ${price}</div>
-            <div class="buy-section-left">Buy <i class="fa-solid fa-cart-shopping icon"></i></div>
+            <div class="buy-section-left data-id=${id}">Buy <i class="fa-solid fa-cart-shopping icon"></i></div>
         </div>
         <div class="rating">
             <div class="rating-right"><i class="fa-solid fa-star icon"></i>${rate}</div>
@@ -56,35 +48,44 @@ const createCart=(product)=>{
         </div>
 
     </div>
-    `
-    carts.innerHTML+=cartJSX
-    
+    `;
+    carts.innerHTML += cartJSX;
+  });
+};
 
-}
+const showUserButton = () => {
+  const cookie = getCookie();
 
-const start=()=>{
-    loader.style.display="none"
-    
-}
-
-const showUserButton=()=>{
-    const cookie=getCookie()
-
-    if(cookie){
-        userButton.innerHTML=`
+  if (cookie) {
+    userButton.innerHTML = `
         <i class="fa-solid fa-house-chimney icon"></i>Dashboard
-        `
-        userButton.href="./public/dashboard.html"
-    }else{
-        userButton.innerHTML=`
+        `;
+    userButton.href = "./public/dashboard.html";
+  } else {
+    userButton.innerHTML = `
         <i class="fa-solid fa-arrow-right-to-bracket icon"></i>Login
-        `
-        userButton.href="./public/auth.html"
-    }
+        `;
+    userButton.href = "./public/auth.html";
+  }
+};
 
-}
+const start = () => {
+  loader.style.display = "none";
+};
 
+const searchHandeler = (event) => {
+  const query = event.target.value.trim().toLowerCase();
+  const filteredProducts = allProducts.filter((product) => {
+    const productName = shortString(product.title).toLowerCase();
+    return productName.includes(query);
+  });
 
+  if (filteredProducts.length) {
+    showProducts(filteredProducts);
+  } else {
+    carts.innerHTML = `<p class="alert"> No product found !</p>`;
+  }
+};
 
-
-window.addEventListener("DOMContentLoaded",getData)
+window.addEventListener("DOMContentLoaded", init);
+searchButton.addEventListener("keyup", searchHandeler);
