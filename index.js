@@ -6,9 +6,8 @@ const loader = document.querySelector(".loader");
 const userButton = document.getElementById("user");
 const carts = document.querySelector(".carts");
 const searchButton = document.getElementById("search-button");
+const categoryList = document.querySelectorAll(".categury");
 let allProducts = null;
-
-const BASE_URL = "https://fakestoreapi.com";
 
 const init = async () => {
   showUserButton();
@@ -83,9 +82,33 @@ const searchHandeler = (event) => {
   if (filteredProducts.length) {
     showProducts(filteredProducts);
   } else {
-    carts.innerHTML = `<p class="alert"> No product found !</p>`;
+    carts.innerHTML = `<div class="alert"> No product found !</div>`;
+  }
+};
+const categoryHandeler = (event) => {
+  const category = event.target.innerText.toLowerCase();
+
+  categoryList.forEach((item) => {
+    if (item.innerText.toLowerCase() === category) {
+      item.className = "categury-selected";
+    } else {
+      item.className = "categury";
+    }
+  });
+  const filteredProducts = allProducts.filter((product) => {
+    if (product.category.toLowerCase() === category) {
+      return product;
+    }
+  });
+  if (filteredProducts.length) {
+    showProducts(filteredProducts);
+  } else {
+    showProducts(allProducts);
   }
 };
 
 window.addEventListener("DOMContentLoaded", init);
 searchButton.addEventListener("keyup", searchHandeler);
+categoryList.forEach((item) =>
+  item.addEventListener("click", categoryHandeler)
+);
