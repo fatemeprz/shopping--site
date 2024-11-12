@@ -5,9 +5,11 @@ import shortString from "./utils/shortString.js";
 const loader = document.querySelector(".loader");
 const userButton = document.getElementById("user");
 const carts = document.querySelector(".carts");
-const searchButton = document.getElementById("search-button");
+const searchInput = document.getElementById("search-button");
 const categoryList = document.querySelectorAll(".categury");
 let allProducts = null;
+let searchValue = null;
+let category = null;
 
 const init = async () => {
   showUserButton();
@@ -73,20 +75,11 @@ const start = () => {
 };
 
 const searchHandeler = (event) => {
-  const query = event.target.value.trim().toLowerCase();
-  const filteredProducts = allProducts.filter((product) => {
-    const productName = shortString(product.title).toLowerCase();
-    return productName.includes(query);
-  });
-
-  if (filteredProducts.length) {
-    showProducts(filteredProducts);
-  } else {
-    carts.innerHTML = `<div class="alert"> No product found !</div>`;
-  }
+  searchValue = event.target.value.trim().toLowerCase();
+  searchByCategory();
 };
 const categoryHandeler = (event) => {
-  const category = event.target.innerText.toLowerCase();
+  category = event.target.innerText.toLowerCase();
 
   categoryList.forEach((item) => {
     if (item.innerText.toLowerCase() === category) {
@@ -95,20 +88,45 @@ const categoryHandeler = (event) => {
       item.className = "categury";
     }
   });
-  const filteredProducts = allProducts.filter((product) => {
-    if (product.category.toLowerCase() === category) {
-      return product;
+  searchByCategory();
+};
+const searchByCategory = () => {
+  if (searchValue) {
+    const fillteredProducts = allProducts.filter((product) => {
+      if (category === "all") {
+        return product.title.toLowerCase().includes(searchValue);
+      } else {
+        return (
+          product.title.toLowerCase().includes(searchValue) &&
+          product.category.toLowerCase() === category
+        );
+      }
+    });
+    if (fillteredProducts.length) {
+      showProducts(fillteredProducts);
+    } else {
+      notFoundProduct();
     }
-  });
-  if (filteredProducts.length) {
-    showProducts(filteredProducts);
-  } else {
-    showProducts(allProducts);
+  } else if (!searchValue) {
+    const fillteredProducts = allProducts.filter((product) => {
+      if (category === "all") return allProducts;
+      else {
+        return product.category.toLowerCase() === category;
+      }
+    });
+    if (fillteredProducts.length) {
+      showProducts(fillteredProducts);
+    } else {
+      notFoundProduct();
+    }
   }
+};
+const notFoundProduct = () => {
+  carts.innerHTML = `<div class="alert"> No product found !</div>`;
 };
 
 window.addEventListener("DOMContentLoaded", init);
-searchButton.addEventListener("keyup", searchHandeler);
+searchInput.addEventListener("keyup", searchHandeler);
 categoryList.forEach((item) =>
   item.addEventListener("click", categoryHandeler)
 );
